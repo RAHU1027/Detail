@@ -1,1 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRIME DATA ACCESS - Advanced Intelligence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #1a1a1a; color: #e5e7eb; font-family: sans-serif; }
+        .gradient-text { background: linear-gradient(to right, #fbbf24, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .platform-card { background-color: #262626; border-radius: 12px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); }
+        .platform-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5); }
+        .green-glow { border: 2px solid #34d399; box-shadow: 0 0 15px rgba(52, 211, 153, 0.5); }
+        .purple-glow { border: 2px solid #a78bfa; box-shadow: 0 0 15px rgba(167, 139, 250, 0.5); }
+        .gold-glow { border: 2px solid #fbbf24; box-shadow: 0 0 15px rgba(251, 191, 36, 0.5); }
+        .red-glow { border: 2px solid #f87171; box-shadow: 0 0 15px rgba(248, 113, 113, 0.5); }
+        .gradient-button-green { background: linear-gradient(to bottom right, #34d399, #10b981); color: #111; font-weight: bold; }
+        .gradient-button-purple { background: linear-gradient(to bottom right, #a78bfa, #8b5cf6); color: #111; font-weight: bold; }
+    </style>
+</head>
+<body class="p-6">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8 border-b border-gray-700 pb-4">
+        <h1 class="text-3xl gradient-text">PRIME DATA ACCESS</h1>
+        <div class="text-gray-400 text-sm">
+            <p>Advanced Intelligence Solutions</p>
+            <p>Wallet: {{ wallet_balance }}</p>
+        </div>
+    </div>
 
+    <!-- Main Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Phone Lookup -->
+        <div class="platform-card p-6 green-glow flex flex-col items-center">
+            <svg class="w-16 h-16 text-emerald-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            <h2 class="text-2xl mb-2 text-emerald-300">PHONE LOOKUP</h2>
+            <p class="text-gray-400 mb-4 text-center">Enter Number (10 digits)</p>
+            <input type="text" placeholder="Enter Number..." class="w-full p-3 mb-4 bg-zinc-800 rounded border border-zinc-700 focus:outline-none focus:border-emerald-500">
+            <button class="gradient-button-green w-full p-3 rounded hover:opacity-90">SUBMIT (₹10)</button>
+        </div>
+
+        <!-- TG Username -->
+        <div class="platform-card p-6 purple-glow flex flex-col items-center">
+            <svg class="w-16 h-16 text-violet-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path></svg>
+            <h2 class="text-2xl mb-2 text-violet-300">TG USERNAME</h2>
+            <p class="text-gray-400 mb-4 text-center">Enter @Username</p>
+            <input type="text" placeholder="@username..." class="w-full p-3 mb-4 bg-zinc-800 rounded border border-zinc-700 focus:outline-none focus:border-violet-500">
+            <button class="gradient-button-purple w-full p-3 rounded hover:opacity-90">SUBMIT (₹15)</button>
+        </div>
+
+        <!-- Scan & Details -->
+        <div class="platform-card p-6 gold-glow col-span-1 md:col-span-2 flex flex-col items-center text-center">
+            <svg class="w-16 h-16 text-yellow-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path></svg>
+            <h2 class="text-2xl mb-2 text-yellow-300">SCAN & DETAILS</h2>
+            <p class="text-gray-400 mb-4 max-w-lg">Full Scan for more information, network history, and advanced reports.</p>
+            <button class="gradient-button-green bg-gradient-to-br from-yellow-400 to-yellow-600 p-3 rounded hover:opacity-90 px-8">VIEW OPTIONS</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-12 text-center text-gray-600 text-xs border-t border-gray-700 pt-6">
+        System Status: <span class="text-emerald-400">{{ status }}</span>
+    </div>
+</body>
+</html>
