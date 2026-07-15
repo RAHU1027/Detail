@@ -8,9 +8,9 @@ import phonenumbers
 from phonenumbers import carrier, geocoder
 
 # Render/Server ke environment se data uthayega
-API_ID = int(os.environ.get("API_ID", 0))
-API_HASH = os.environ.get("API_HASH", "")
-SESSION_STRING = os.environ.get("SESSION_STRING", "")
+API_ID = int(os.environ.get("21552435", 0))
+API_HASH = os.environ.get("5b108bd2fdd31c0c34bc65f24a5216a0", "")
+SESSION_STRING = os.environ.get("BQFI3TMATHAm-_lYmmbFUW9xZSB4OY_cmhzahsyOwdzRnuoTq_ywbYsy6pTwxucMjmkR8V-x5r1CjqJfMPWgG19NTN2BUFr3v9e_68jjqIBm7_4kZj1GLd-Vt1R9y8KA6vFrUPzKWOHPNKCa-vJOuBCv_4F7Wm9m3tVm4CpkuG_M-58We5psd-qAaaTNxxm2VJ-qVTZ4JBkVCqS_QkqmYwH9z6uiW79e8GV2qeYSZK52Xhi-Idhf-XekKei7Lb7uplOTfiA7z-Nn2N0O91Jsd7Lt9wZcPxofrdwjMbLPzxPJ4vPRf8RiOYnoaM-1QRiyLw0kSNeJGqF8I0nXNeh53Gvf-Ys6OQAAAAHTR-i_AA", "")
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
