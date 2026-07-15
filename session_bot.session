@@ -1,1 +1,11 @@
+import os
+from telethon import TelegramClient
+from telethon.sessions import StringSession
 
+# Render ke Environment Variables se keys utha raha hai
+API_ID = int(os.environ.get("API_ID"))
+API_HASH = os.environ.get("API_HASH")
+SESSION_STRING = os.environ.get("SESSION_STRING")
+
+# Client initialize
+client = TelegramClient(StringSession(SESSION_STRING), API_ID, API_HASH)
