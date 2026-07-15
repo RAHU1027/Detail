@@ -1,25 +1,27 @@
+import os
 from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from telethon.sync import TelegramClient
+from telethon import TelegramClient
+from telethon.sessions import StringSession
 import phonenumbers
 from phonenumbers import carrier, geocoder
-import os
 
-# --- CONFIG ---
-API_ID = 21552435
-API_HASH = "5b108bd2fdd31c0c34bc65f24a5216a0"
+# Render/Server ke environment se data uthayega
+API_ID = int(os.environ.get("API_ID", 0))
+API_HASH = os.environ.get("API_HASH", "")
+SESSION_STRING = os.environ.get("SESSION_STRING", "")
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
-client = TelegramClient('session_bot', API_ID, API_HASH)
 
-# --- STARTUP ---
+# Client initialization
+client = TelegramClient(StringSession(SESSION_STRING), API_ID, API_HASH)
+
 @app.on_event("startup")
 async def startup():
     await client.start()
 
-# --- ROUTES ---
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "result": None})
@@ -28,20 +30,18 @@ async def home(request: Request):
 async def search(request: Request, type: str = Form(...), query: str = Form(...)):
     result = {"type": type, "query": query, "data": {}}
     
-    # 1. TELEGRAM LOOKUP
     if type == "telegram":
         try:
             user = await client.get_entity(query)
             result["data"] = {
-                "Full Name": f"{user.first_name} {user.last_name or ''}",
-                "Username": f"@{user.username}" if user.username else "N/A",
+                "Name": f"{user.first_name} {user.last_name or ''}",
+                "Username": f"@{user.username}" if user.username else "Hidden",
                 "User ID": user.id,
-                "Phone": user.phone if user.phone else "Hidden/Private"
+                "Phone": user.phone if user.phone else "Privacy Restricted"
             }
-        except Exception as e:
-            result["error"] = "User nahi mila ya invalid username hai."
-
-    # 2. PHONE LOOKUP
+        except Exception:
+            result["error"] = "User nahi mila, username check karein."
+            
     elif type == "phone":
         try:
             parsed = phonenumbers.parse(query, "IN")
@@ -49,12 +49,11 @@ async def search(request: Request, type: str = Form(...), query: str = Form(...)
                 result["data"] = {
                     "Location": geocoder.description_for_number(parsed, "en"),
                     "Operator": carrier.name_for_number(parsed, "en"),
-                    "Format": phonenumbers.format_number(parsed, phonenumbers.PhoneNumberFormat.INTERNATIONAL),
-                    "Type": "Mobile/Landline"
+                    "Validity": "Active Number"
                 }
             else:
-                result["error"] = "Number valid nahi hai."
+                result["error"] = "Invalid number format."
         except Exception:
-            result["error"] = "Number format galat hai."
+            result["error"] = "Lookup failed."
 
     return templates.TemplateResponse("index.html", {"request": request, "result": result})
